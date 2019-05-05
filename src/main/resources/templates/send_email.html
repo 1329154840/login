@@ -1,0 +1,79 @@
+<html>
+<head>
+    
+</head>
+
+
+<link href="/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel = "stylesheet"/>
+<!-- 导航栏 -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">游记摘要系统</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active">
+
+                <a href="/index/">首页</a></li><!--“#”是默认当前页面，可以把#换成想跳转的页面-->
+              <li><a href="/add/">写游记</a></li>
+              <li><a href="/send_email/">联系我们</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+           <li><a href="#">用户名</a></li>
+           <li><a href="/logout/">注销</a></li>
+         </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+
+<script>
+        function download_excel()
+        {
+            document.getElementById("btn").click()
+        }
+    </script>
+
+    <body>
+    <div class="row" style="margin-top: 80px;margin-left: 80px">
+    <section id="contact-area"  >
+        <div class="container"><!--end section heading-->
+            <div class="row">
+                <div class="col-lg-10 offset-lg-1"><!--start contact form-->
+                    <div class="contact-box text-center">
+                        <form  method="post" action="/send_email/">
+                          
+                            <div class="form-group row">
+                                <div class="col-lg-6">
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="姓名" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="subject" name="subject" placeholder="标题"></div>
+                            <div class="form-group">
+                                <textarea class="form-control" id="message" name="message" rows="10" placeholder="留言内容*" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-lg">提 交</button>
+                            <div id="form-messages"></div>
+                        </form>
+                    </div><!--end contact form-->
+                </div>
+            </div>
+        </div>
+    </section>
+    </div>
+    </body>
+
+
+
+    <div class="container theme-showcase" role="main">
+      <div class="page-header">
+      </div>
+      <footer class="footer">
+        <p>&copy; 游记摘要系统 by:bupt_YZ</p>
+      </footer>
+    </div> <!-- /container -->
+
+</html>
+    

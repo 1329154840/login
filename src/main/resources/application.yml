@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: bupt_123456
+    url: jdbc:mysql://123.207.136.28:3306/system?characterEncoding=utf-8&useSSL=false&useUnicode=true
+  freemarker:
+    suffix: .html
+    cache: false
+    template-loader-path: classpath:/templates/
+    charset: utf-8
+  mvc:
+    static-path-pattern: /**
+server:
+  port: 8080
