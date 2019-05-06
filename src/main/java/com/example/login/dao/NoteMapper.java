@@ -62,4 +62,8 @@ public interface NoteMapper {
     public static final String add_poll = "UPDATE travel_notes set poll_num=poll_num+1 where id=#{id};";
     @Update(add_poll)
     int add_poll(int id);
+
+    public static final String delete = "Delete from travel_notes where id=#{id}";
+    @Delete(delete)
+    int delete(int id);
 }

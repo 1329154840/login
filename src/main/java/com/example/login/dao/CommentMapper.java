@@ -14,6 +14,8 @@ public interface CommentMapper {
     public static final String insert = "Insert into comment(note_id,content,username) VALUES (#{note_id},#{content},#{username}) ";
     @Insert(insert)
     int insert(int note_id,String content,String username);
+
+
 }
 
 

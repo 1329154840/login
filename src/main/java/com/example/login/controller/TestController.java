@@ -117,7 +117,7 @@ public class TestController {
         List<User> userList = userMapper.getOne(username,password);
         if (userList.size() ==0)
         {
-//            model.addAttribute("msg","密码或用户名不正确");
+            model.addAttribute("msg","密码或用户名不正确");
             log.info("登录失败");
             return "login";
         }
@@ -574,13 +574,14 @@ public class TestController {
         Object obj = null;
         if (session!=null)
         {
-            if (session.getAttribute("username")!=null)
+            if (session.getAttribute("username")!=null) {
                 obj = session.getAttribute("username");
-            log.info(obj.toString());
-
-            if (obj!=null)
+                log.info(obj.toString());
+            }
+            if (obj!=null) {
                 login_user = obj.toString();
-            model.addAttribute("login_user",login_user);
+                model.addAttribute("login_user", login_user);
+            }
         }
 
         List<Travel_notes> noteList = noteMapper.getMy_note(login_user);
@@ -602,7 +603,15 @@ public class TestController {
 
         }
         model.addAttribute("mapList",mapList);
-        return "index";
+        return "my_note";
     }
 
+
+    @RequestMapping(value = "/delete/")
+    public String my_note(Model model,
+                          HttpServletRequest request,
+                          @RequestParam("id") String id){
+        noteMapper.delete(Integer.parseInt(id));
+        return "redirect:/my_note/";
+    }
 }
