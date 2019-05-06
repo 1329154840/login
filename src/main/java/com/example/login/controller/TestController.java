@@ -16,7 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletRequest;
 import com.hankcs.hanlp.HanLP;
 import com.hankcs.hanlp.seg.common.Term;
 import com.hankcs.hanlp.suggest.Suggester;
@@ -55,8 +56,21 @@ public class TestController {
     private CommentMapper commentMapper ;
 
     @RequestMapping(value = "/index")
-    public String main(Model model){
-
+    public String main(Model model,HttpServletRequest request){
+        String login_user="未登录游客";
+        HttpSession session=request.getSession(false);
+        Object obj = null;
+        if (session!=null)
+        {
+            if (session.getAttribute("username")!=null) {
+                obj = session.getAttribute("username");
+                log.info(obj.toString());
+            }
+            if (obj!=null) {
+                login_user = obj.toString();
+                model.addAttribute("login_user", login_user);
+            }
+        }
         List<Travel_notes> noteList = noteMapper.findAll();
         List<Map<String,String>> mapList = new ArrayList<Map<String,String>>();
         for (Travel_notes note :noteList){
@@ -95,6 +109,7 @@ public class TestController {
 
     @PostMapping(value = "/login/")
     public String login(Model model,
+                        HttpServletRequest request,
                         @RequestParam("username") String username,
                         @RequestParam("password") String password)
     {
@@ -129,11 +144,15 @@ public class TestController {
             model.addAttribute("mapList",mapList);
             log.info("登录成功");
 
+            HttpSession session=request.getSession(true);//这就是session的创建
+            session.setAttribute("username",username);//给session添加属性属性name： username,属性 value：TOM
+            session.setAttribute("password",password);//添加属性 name: password; value: tommmm
+
 
         }
 
 
-            return "index";
+        return "redirect:/index/";
 
     }
 
@@ -142,6 +161,17 @@ public class TestController {
 
         return "register";
     }
+
+    @RequestMapping(value = "/logout/")
+    public String logout(Model model,HttpSession session){
+        if (session != null) {
+            session.removeAttribute("username");
+            session.removeAttribute("password");
+        }
+        return  "redirect:/index/";
+    }
+
+
 
     @PostMapping(value = "/register/")
     public String register(Model model,
@@ -155,22 +185,37 @@ public class TestController {
         return "login";
     }
 
-    @RequestMapping(value = "/send_email/")
-    public String send_mail(Model model){
-
-        List<User> userList = userMapper.findAll();
-        for (User user :userList){
-            model.addAttribute("name",user.getUsername());
-            log.info("user {} password {}",user.getUsername(),user.getPassword());
-        }
-        return "send_email";
-    }
+//    @RequestMapping(value = "/send_email/")
+//    public String send_mail(Model model){
+//
+//        List<User> userList = userMapper.findAll();
+//        for (User user :userList){
+//            model.addAttribute("name",user.getUsername());
+//            log.info("user {} password {}",user.getUsername(),user.getPassword());
+//        }
+//        return "send_email";
+//    }
 
     @RequestMapping(value = "/detail/")
     public String detail(
             Model model,
+            HttpServletRequest request,
             @RequestParam("id") String id)
     {
+        String login_user="未登录游客";
+        HttpSession session=request.getSession(false);
+        Object obj = null;
+        if (session!=null)
+        {
+            if (session.getAttribute("username")!=null) {
+                obj = session.getAttribute("username");
+                log.info(obj.toString());
+            }
+            if (obj!=null) {
+                login_user = obj.toString();
+                model.addAttribute("login_user", login_user);
+            }
+        }
         log.info(id);
         noteMapper.add_view(Integer.parseInt(id));
         Travel_notes note = noteMapper.getOne(Integer.parseInt(id));
@@ -195,17 +240,47 @@ public class TestController {
     }
 
     @RequestMapping(value = "/add/")
-    public String add(Model model){
-
+    public String add(Model model,HttpServletRequest request){
+        String login_user="未登录游客";
+        HttpSession session=request.getSession(false);
+        Object obj = null;
+        if (session!=null)
+        {
+            if (session.getAttribute("username")!=null) {
+                obj = session.getAttribute("username");
+                log.info(obj.toString());
+            }
+            if (obj!=null) {
+                login_user = obj.toString();
+                model.addAttribute("login_user", login_user);
+            }
+        }
         return "add";
     }
 
     @PostMapping(value = "/add/")
     public String register(Model model,
+                           HttpServletRequest request,
                            @RequestParam("username") String username,
                            @RequestParam("textname") String textname,
                            @RequestParam("text") String text)
     {
+
+        String login_user="未登录游客";
+        HttpSession session=request.getSession(false);
+        Object obj = null;
+        if (session!=null)
+        {
+            if (session.getAttribute("username")!=null) {
+                obj = session.getAttribute("username");
+                log.info(obj.toString());
+            }
+            if (obj!=null) {
+                login_user = obj.toString();
+                model.addAttribute("login_user", login_user);
+            }
+        }
+
         List<String> sentenceList = HanLP.extractSummary(text, 3);
         String zhaiyao = String.join("", sentenceList);
         log.info(zhaiyao);
@@ -237,9 +312,24 @@ public class TestController {
 
     @PostMapping(value = "/sort/")
     public String register(Model model,
+                           HttpServletRequest request,
                            @RequestParam("sort") String sort)
 
     {
+        String login_user="未登录游客";
+        HttpSession session=request.getSession(false);
+        Object obj = null;
+        if (session!=null)
+        {
+            if (session.getAttribute("username")!=null) {
+                obj = session.getAttribute("username");
+                log.info(obj.toString());
+            }
+            if (obj!=null) {
+                login_user = obj.toString();
+                model.addAttribute("login_user", login_user);
+            }
+        }
 
         if (sort.equals("点赞数")) {//排序在sql查询中进行
             List<Travel_notes> noteList = noteMapper.poll_num();
@@ -338,10 +428,24 @@ public class TestController {
 
     @PostMapping(value = "/search/")
     public String search(Model model,
+                           HttpServletRequest request,
                            @RequestParam("keyword") String keyword
                            )
     {
-
+        String login_user="未登录游客";
+        HttpSession session=request.getSession(false);
+        Object obj = null;
+        if (session!=null)
+        {
+            if (session.getAttribute("username")!=null) {
+                obj = session.getAttribute("username");
+                log.info(obj.toString());
+            }
+            if (obj!=null) {
+                login_user = obj.toString();
+                model.addAttribute("login_user", login_user);
+            }
+        }
         List<Travel_notes> noteList = noteMapper.search(keyword);
 
         List<Map<String,String>> mapList = new ArrayList<Map<String,String>>();
@@ -370,13 +474,30 @@ public class TestController {
     @PostMapping(value = "/comment/")
     public String comment(
             Model model,
+            HttpServletRequest request,
             @RequestParam("comment") String content,
             @RequestParam("id") String id)
     {
+        String login_user="未登录游客";
+        HttpSession session=request.getSession(false);
+        Object obj = null;
+        if (session!=null)
+        {
+            if (session.getAttribute("username")!=null) {
+                obj = session.getAttribute("username");
+                log.info(obj.toString());
+            }
+            if (obj!=null) {
+                login_user = obj.toString();
+                model.addAttribute("login_user", login_user);
+            }
+        }
+
         log.info(id);
         log.info(content);
-        commentMapper.insert(content);
+        commentMapper.insert(Integer.parseInt(id),content,login_user);
         noteMapper.add_comment(Integer.parseInt(id));
+        log.info("添加评论成功");
         Travel_notes note = noteMapper.getOne(Integer.parseInt(id));
         Map<String,String> map= new HashMap<>();
         map.put("id",note.getId());
@@ -391,6 +512,7 @@ public class TestController {
         for (comment com :commentList){
             Map<String,String> comment_map= new HashMap<>();
             comment_map.put("username",com.getUser_name());
+            log.info(com.getUser_name());
             comment_map.put("content",com.getContent());
             mapList.add(comment_map);
         }
@@ -402,8 +524,25 @@ public class TestController {
     @RequestMapping(value = "/poll/")
     public String poll(
             Model model,
+            HttpServletRequest request,
             @RequestParam("id") String id)
     {
+
+        String login_user="未登录游客";
+        HttpSession session=request.getSession(false);
+        Object obj = null;
+        if (session!=null)
+        {
+            if (session.getAttribute("username")!=null) {
+                obj = session.getAttribute("username");
+                log.info(obj.toString());
+            }
+            if (obj!=null) {
+                login_user = obj.toString();
+                model.addAttribute("login_user", login_user);
+            }
+        }
+
         log.info("点赞成功");
         noteMapper.add_poll(Integer.parseInt(id));
         Travel_notes note = noteMapper.getOne(Integer.parseInt(id));
@@ -428,6 +567,42 @@ public class TestController {
         return "detail";
     }
 
+    @RequestMapping(value = "/my_note/")
+    public String my_note(Model model,HttpServletRequest request){
+        String login_user=null;
+        HttpSession session=request.getSession(false);
+        Object obj = null;
+        if (session!=null)
+        {
+            if (session.getAttribute("username")!=null)
+                obj = session.getAttribute("username");
+            log.info(obj.toString());
 
+            if (obj!=null)
+                login_user = obj.toString();
+            model.addAttribute("login_user",login_user);
+        }
+
+        List<Travel_notes> noteList = noteMapper.getMy_note(login_user);
+        List<Map<String,String>> mapList = new ArrayList<Map<String,String>>();
+        for (Travel_notes note :noteList){
+            Map<String,String> map= new HashMap<>();
+            map.put("id",note.getId());
+            map.put("username",note.getUsername());
+            map.put("textname",note.getTextname());
+            if (note.getText()!=null && note.getText().length()>12)
+                map.put("text",note.getText().substring(0,11));
+            else
+                map.put("text",note.getText());
+            if (note.getZhaiyao()!=null && (note.getZhaiyao()).length()>12)
+                map.put("zhaiyao",note.getZhaiyao().substring(0,11));
+            else
+                map.put("zhaiyao",note.getZhaiyao());
+            mapList.add(map);
+
+        }
+        model.addAttribute("mapList",mapList);
+        return "index";
+    }
 
 }

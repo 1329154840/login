@@ -11,9 +11,9 @@ public interface CommentMapper {
     @Select(getOne)
     List<comment> getOne(int note_id);
 
-    public static final String insert = "Insert into comment(content) VALUES (#{content}) ";
+    public static final String insert = "Insert into comment(note_id,content,username) VALUES (#{note_id},#{content},#{username}) ";
     @Insert(insert)
-    int insert(String content);
+    int insert(int note_id,String content,String username);
 }
 
 

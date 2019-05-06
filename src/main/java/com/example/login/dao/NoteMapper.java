@@ -27,6 +27,10 @@ public interface NoteMapper {
     @Select(getOne)
     Travel_notes getOne(int id);
 
+    public static final String getMy_note = "SELECT * FROM travel_notes where username = #{usernam} ";
+    @Select(getMy_note)
+    List<Travel_notes> getMy_note(String usernam);
+
     public static final String INSERT = "INSERT INTO travel_notes(username,textname,text,zhaiyao) VALUES (#{username},#{textname},#{text},#{zhaiyao})";
     @Insert(INSERT)
     int insert(String username,String textname,String text,String zhaiyao);
