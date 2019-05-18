@@ -31,9 +31,9 @@ public interface NoteMapper {
     @Select(getMy_note)
     List<Travel_notes> getMy_note(String usernam);
 
-    public static final String INSERT = "INSERT INTO travel_notes(username,textname,text,zhaiyao) VALUES (#{username},#{textname},#{text},#{zhaiyao})";
+    public static final String INSERT = "INSERT INTO travel_notes(username,textname,text,zhaiyao,labels) VALUES (#{username},#{textname},#{text},#{zhaiyao},#{labels})";
     @Insert(INSERT)
-    int insert(String username,String textname,String text,String zhaiyao);
+    int insert(String username,String textname,String text,String zhaiyao,String labels);
 
     public static final String view_num = "SELECT * FROM travel_notes order by view_num desc";
     @Select(view_num)

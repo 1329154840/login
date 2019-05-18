@@ -3,23 +3,77 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width" />
-	<title>主页</title>
+	<title>add</title>
 
      <link href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
     <script src="http://apps.bdimg.com/libs/jquery/2.0.0/jquery.min.js"></script>
     <script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/font-awesome.css">
+
 	<meta name="keywords" content="botany, responsive, bootstrap, free template, fluid layout, templatemo, html css" />
 	<meta name="description" content="Botany Template is free responsive template with a fluid background image." />
-
 
     <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" >
     <link rel="stylesheet" href="/css/templatemo_style.css" type="text/css">
     <link rel="stylesheet" href="/css/flexslider.css" type="text/css" media="screen">
 
+    <link href="//fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+	<link href="//fonts.googleapis.com/css?family=Raleway:400,500,600,700" rel="stylesheet">
+
     <script src="/slider/modernizr.js"></script>
 
+
     <style>
+
+
+
+
+
+
+        input[type="reset"] {
+	        margin: 20px auto;
+            padding: 9px 60px;
+            border-radius: 25px;
+            font-size: 18px;
+            border: none;
+            background-color: transparent;
+            color: #fff;
+            text-transform: uppercase;
+            outline: 0;
+            border: 1px solid #4f5d61;
+	        cursor: pointer;
+	        width: 100%;
+	        letter-spacing: 1px;
+        }
+        input[type="reset"]:hover {
+            color: #fff;
+            background-color:  rgba(0, 245, 255, 0.69);
+        }
+        input[type="reset"] {
+	        transition: 0.5s all;
+	        -webkit-transition: 0.5s all;
+	        -moz-transition: 0.5s all;
+	        -o-transition: 0.5s all;
+	        -ms-transition: 0.5s all;
+        }
+        input[type="reset"] {
+            margin: 10px auto;
+	        padding: 8px 60px;
+        }
+        textarea{
+            outline: 0;
+            border: none;
+            padding: 12px 15px;
+            border-radius: 25px;
+            border: none;
+            background-color: rgba(87, 102, 103, 0.59);
+            color: white;
+	        width: 90%;
+	        letter-spacing: 1px;
+        }
         .button{
             color:rgb(255, 255, 255);
             font-size:14px;
@@ -76,8 +130,8 @@
 </head>
 <body class="templatemo_juice_bg">
 <span style="font-family: '幼圆'; ">
-	<center>
-<!--    {% if messages %}-->
+<!--	<center>-->
+<!--        {% if messages %}-->
 <!--    <ulclass="messages">-->
 <!--        {%for message in messages %}-->
 <!--        <li{%if message.error %} class="{{ message.error}}"{% endif %}>{{message }}</li>-->
@@ -94,10 +148,8 @@
 					</div>
 					<nav id="main_nav">
 						<ul class="nav">
-							<li class="active" style="font-family: '幼圆'; "><a href="/index/">主页</a></li>
+							<li class="active" style="font-family: '幼圆'; " ><a href="/index/">主页</a></li>
 							<li><a href = "/add/"style="font-family: '幼圆'; ">添加游记</a></li>
-							<!--<li><a href=""style="font-family: '幼圆'; ">不知道</a></li>
-							<li><a href=""style="font-family: '幼圆'; ">不知道</a></li>-->
 							<li><a href="/my_note/" style="font-family: '幼圆'; ">查看我的游记</a></li>
 						</ul>
 					</nav> <!-- nav -->
@@ -109,10 +161,10 @@
                     <br>
                     <br>
                     <center>
-                     
+
                          <a  style="color: white">当前用户：${login_user!"未登录游客"}</a>
-                         
-                    
+
+
                 </center>
                  <br> <br> <br>
 
@@ -136,78 +188,26 @@
 
         				</div>
                     </div>
+                    <div class="agile-login">
+		                <h1 style="color: white;font-family: '幼圆'; ">添加标签 </h1>
+		                    <div class="wrapper">
+			                <div class="w3ls-form">
+				                <div class="container" style="width: 330px;">
+                                  <form class="form-signin" method="post" action="/add_label/" >
 
+                                        <label for="textname" class="sr-only">标签</label>
+                                          <input name="name" type="text" id="textname" class="form-control" placeholder="标签名" required autofocus>
 
-                    <div class="box">
-		                <div class="box-left">
-                            <center>
-                            <h1 class="text-center" style="color: white;font-family: '幼圆'; ">游记列表</h1>
-<!--                            <p>-->
-<!--                                {% for hot in hotlist %}-->
-<!--                                    <a>{{ hot.content }}</a>-->
-<!--                                    <br>-->
-<!--                                {% endfor %}-->
-<!--                            </p>-->
-                                <center>
-		                </div>
-                        <form class="navbar-form" method="post" action="/search/">
-                            <div class="form-group">
-                              <input id="keyword" name="keyword" type="text" placeholder="关键字" class="form-control">
-                            </div>
-                            <button type="submit" class="btn btn-success">搜索</button>
-                          </form>
+                                        <button class="btn btn-lg btn-primary btn-block" type="submit">确认添加</button>
 
-                        <form action="/sort/" method="POST">
-                          <div class="form-group">
-                            <select id="sort" name="sort" class="form-control" onchange="javascript:this.form.submit();">    <!--如果改变  就自动提交-->
-                                <option value="None">选择排序方式</option><!--默认是其中某一种-->
-                                <option value="点赞数">点赞数</option>
-                                <option value="评论数">评论数</option>
-                                <option value="浏览量">浏览量</option>
-
-                            </select>
-                          </div>
-
-                            <div class="form-group" hidden="hidden">
-                                <button  type="submit" id="btn1" class="btn btn-primary btn-lg" style="margin: 0px auto;display: table;">交卷</button>
-                            </div>
-                        </form>
-
-		                <div class="box-center">
-                        <table  class = "table" >
-                            <thread>
-                                <tr>
-                                    <th class="text-center" style="width:30%;color: white">作者</th>
-                                    <th class="text-left" style="width:70%;color: white">游记标题</th>
-                                </tr>
-                            </thread>
-                            <tbody>
-                            <#list mapList as note>
-                             <tr>
-                                <td>
-                                    <center>
-                                        <br>
-                                    <a type="button" class="button" href="/information/?personid={{ ask.person.id }}" style="color: white">${note.username!}</a>
-                                    </center>
-                                </td>
-                                 <td >
-                                     <br>
-
-                                     <a class="text-left"style="color: white" >${note.textname!} </a>
-                                        <a type="button" class="button button2" href="/detail/?id=${note.id!}">查看详细</a>
-                                        <a type="button"  class="button button2" href="/delete/?id=${note.id!}">删除</a>
-                                     <br>
-                                 </td>
-                             </tr>
-                            </#list>
-                            </tbody>
-                         </table>
-		                </div>
-                    <br><br><br><br><br>
+                                  </form>
+			                </div>
+		                    </div>
+		                <br>
 	                </div>
 
                     <br><br><br><br><br><br><br><br><br><br>
-
+                    <br><br><br><br><br><br><br><br><br><br>
 				</div>
 			</div>
 		</div>

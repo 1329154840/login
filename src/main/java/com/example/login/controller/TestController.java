@@ -1,11 +1,7 @@
 package com.example.login.controller;
-
-import com.example.login.dao.CommentMapper;
-import com.example.login.dao.UserMapper;
-import com.example.login.model.User;
-import com.example.login.dao.NoteMapper;
-import com.example.login.model.Travel_notes;
-import com.example.login.model.comment;
+import com.example.login.controller.read_file;
+import com.example.login.dao.*;
+import com.example.login.model.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -23,15 +19,16 @@ import com.hankcs.hanlp.seg.common.Term;
 import com.hankcs.hanlp.suggest.Suggester;
 import com.hankcs.hanlp.tokenizer.NLPTokenizer;
 import java.util.List;
-
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.hankcs.hanlp.HanLP;
 import com.hankcs.hanlp.seg.common.Term;
 import com.hankcs.hanlp.suggest.Suggester;
 import com.hankcs.hanlp.tokenizer.NLPTokenizer;
-
+import java.io.*;
 
 import java.util.*;
-
+import java.io.File;
 /**
  * Created by IntelliJ IDEA.
  * Description:  ---——require需求|ask问题|jira
@@ -53,7 +50,9 @@ public class TestController {
     @Autowired
     private NoteMapper noteMapper;
     @Autowired
-    private CommentMapper commentMapper ;
+    private CommentMapper commentMapper;
+    @Autowired
+    private LabelMapper labelMapper;
 
     @RequestMapping(value = "/index")
     public String main(Model model,HttpServletRequest request){
@@ -241,6 +240,8 @@ public class TestController {
 
     @RequestMapping(value = "/add/")
     public String add(Model model,HttpServletRequest request){
+        List<Label> labelList = labelMapper.findAll();
+        model.addAttribute("labelList", labelList);
         String login_user="未登录游客";
         HttpSession session=request.getSession(false);
         Object obj = null;
@@ -261,9 +262,12 @@ public class TestController {
     @PostMapping(value = "/add/")
     public String register(Model model,
                            HttpServletRequest request,
+                           @RequestParam("file") MultipartFile file,
                            @RequestParam("username") String username,
                            @RequestParam("textname") String textname,
-                           @RequestParam("text") String text)
+                           @RequestParam("labels") String labels,
+                           @RequestParam("text") String text_
+                            )
     {
 
         String login_user="未登录游客";
@@ -281,10 +285,56 @@ public class TestController {
             }
         }
 
+        String text = new String();
+
+        if (!file.isEmpty()) {
+
+
+
+            String fileName = file.getOriginalFilename();
+            String filePath = "C:/Users/Administrator/Desktop/";//绝对路径，相对路径不知道怎么弄
+            File dest = new File(filePath + fileName);
+            log.info(dest.toString());
+            try {
+                file.transferTo(dest);
+                log.info("上传成功");
+
+            } catch (IOException e) {
+                log.info("上传失败");
+            }
+
+
+
+            String pathname = filePath + fileName;
+            read_file a = new read_file();
+            String content = a.readTxt(pathname);
+            text = content;
+//            try (
+//                    InputStreamReader isr = new InputStreamReader(new FileInputStream(pathname), "utf-8");
+//                    BufferedReader br = new BufferedReader(isr) // 建立一个对象，它把文件内容转成计算机能读懂的语言
+//            ) {
+//                String line;
+//                String message = "";
+//                //网友推荐更加简洁的写法
+//                while ((line = br.readLine()) != null) {
+//                    message += line;
+//                    log.info(line);
+//                }
+//                text = message;
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+
+
+
+        }
+        else
+            text = text_;
+
         List<String> sentenceList = HanLP.extractSummary(text, 3);
         String zhaiyao = String.join("", sentenceList);
         log.info(zhaiyao);
-        noteMapper.insert(username,textname,text,zhaiyao);
+        noteMapper.insert(username,textname,text,zhaiyao,labels);
         log.info("添加成功");
 
         List<Travel_notes> noteList = noteMapper.findAll();
@@ -614,4 +664,57 @@ public class TestController {
         noteMapper.delete(Integer.parseInt(id));
         return "redirect:/my_note/";
     }
+
+    @RequestMapping(value = "/add_label/")
+    public String add_label(Model model,HttpServletRequest request){
+
+        String login_user="未登录游客";
+        HttpSession session=request.getSession(false);
+        Object obj = null;
+        if (session!=null)
+        {
+            if (session.getAttribute("username")!=null) {
+                obj = session.getAttribute("username");
+                log.info(obj.toString());
+            }
+            if (obj!=null) {
+                login_user = obj.toString();
+                model.addAttribute("login_user", login_user);
+            }
+        }
+        return "add_label";
+    }
+
+    @PostMapping(value = "/add_label/")
+    public String add_labber(Model model,
+                           HttpServletRequest request,
+                           @RequestParam("name") String name
+                           )
+    {
+
+        String login_user="未登录游客";
+        HttpSession session=request.getSession(false);
+        Object obj = null;
+        if (session!=null)
+        {
+            if (session.getAttribute("username")!=null) {
+                obj = session.getAttribute("username");
+                log.info(obj.toString());
+            }
+            if (obj!=null) {
+                login_user = obj.toString();
+                model.addAttribute("login_user", login_user);
+            }
+        }
+
+        labelMapper.insert(name);
+        log.info("添加成功");
+        return "redirect:/add/";
+
+    }
+
+
 }
+
+
+

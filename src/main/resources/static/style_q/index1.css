@@ -1,0 +1,58 @@
+form, div, table, span, b, a, i, input, font, dl, dt, dd, font, ul, li, ol, h1, h2, h3, h4, h5, h6, figure, button {
+	margin:0;
+	padding:0;
+	list-style: none;
+	list-style-type: none;
+	font-size:50px;
+}
+html { height: 100%; width: 100%; font-family: 'Heiti SC', 'Microsoft YaHei'; font-size: 30px; outline: 0; -webkit-text-size-adjust:none;}
+body { height: 100%; margin: 0; -webkit-user-select: none; position: relative;}
+ul{
+	list-style:none;
+}
+a{
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: none;
+}
+.page1{
+
+}
+.page1 .ui-bar-inherit{
+	background-color:#fff9c9;
+	border:none;
+	box-shadow:0 0.05rem 0.05rem #cecdcd;
+	-moz-box-shadow:0 0.05rem 0.05rem #cecdcd;
+	-webkit-box-shadow:0 0.05rem 0.05rem #cecdcd;
+	-o-box-shadow:0 0.05rem 0.05rem #cecdcd;
+}
+.page1 .ui-title{
+	font-size:0.28rem;
+	margin:0;
+	
+}
+.page1 .ui-btn{
+	font-size:0.26rem;
+	font-weight:bold;
+}
+.page1{
+	font-weight:normal;
+	font-size:0.26rem;
+}
+.page1 .ui-btn{
+
+}
+.page1 .ui-btn:hover{
+
+}
+.page1 h3 .ui-btn{
+	overflow:visible;
+	margin:0;
+	display:block;
+	white-space:normal;
+}
+
+.page1 .ui-collapsible-set{
+	background-color:#FFFFFF;
+}

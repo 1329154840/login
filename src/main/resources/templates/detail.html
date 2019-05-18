@@ -1,110 +1,273 @@
+<!DOCTYPE html>
 <html>
 <head>
-    
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width" />
+	<title>详细页面</title>
+
+     <link href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://apps.bdimg.com/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+
+	<meta name="keywords" content="botany, responsive, bootstrap, free template, fluid layout, templatemo, html css" />
+	<meta name="description" content="Botany Template is free responsive template with a fluid background image." />
+
+
+    <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" >
+    <link rel="stylesheet" href="/css/templatemo_style.css" type="text/css">
+    <link rel="stylesheet" href="/css/flexslider.css" type="text/css" media="screen">
+
+    <script src="/slider/modernizr.js"></script>
+
+	
+	
+	<link rel="stylesheet" href="/static/style_q/jquery.mobile-1.4.5.min.css">
+	<link rel="stylesheet" href="/static/style_q/index_put.css">
+	<script src="/static/js_q/jquery-1.11.3.min.js"></script>
+	<script src="/static/js_q/jquery.mobile-1.4.5.min.js"></script>
+	<script src="/static/js_q/index.js"></script>
+	
+    <style>
+
+
+		.p1 {color: #ffffff;font-family: '微软雅黑 Light'  }
+		.p2 {color: #ffffff;font-family: '微软雅黑 Light'; display: none;  }
+
+
+
+        .button{
+            color:rgb(255, 255, 255);
+            font-size:14px;
+            padding-top:7px;
+            padding-bottom:7px;
+            padding-left:25px;
+            padding-right:25px;
+            border-color: rgba(255, 150, 31, 0.5);
+            border-radius: 8px  ;
+            border-width: 1px;
+            background-color: rgba(255, 150, 31, 1);
+        }
+        .button:hover{
+            color:#ffffff;
+            background-color: #98654d;
+            border-color:#f7e1b5;
+        }
+
+        .button1 {
+            border-color: rgba(15, 184, 192, 0.71);
+            background-color: rgba(0, 245, 255, 0.69);
+            }
+        .button1:hover{
+            color:#ffffff;
+            background-color:#5bc0de;
+            border-color:#a6e1ec;
+        }
+        .button2 {
+            font-size:12px;
+            padding-top:3px;
+            padding-bottom:3px;
+            padding-left:13px;
+            padding-right:13px;
+            float:right;
+            }
+	.box{
+		width: 830px;
+		border:0;
+        background: rgba(0,0,0, 0.5);
+	}
+	.box-left{
+		width: 260px;
+		float: left;
+
+	}
+	.box-right{
+		margin-left: 260px;
+	}
+.table>tbody>tr:hover {
+    background-color: #000000;
+}
+	</style>
+
 </head>
+<body class="templatemo_juice_bg">
+<span style="font-family: '幼圆'; ">
+	<center>
+<!--    {% if messages %}-->
+<!--    <ulclass="messages">-->
+<!--        {%for message in messages %}-->
+<!--        <li{%if message.error %} class="{{ message.error}}"{% endif %}>{{message }}</li>-->
+<!--        {%endfor %}-->
+<!--    </ul>-->
+<!--    {% endif %}-->
+<!--    </center>-->
+    <div id="main_container">
+		<div class="container" id="home">
+			<div class="row col-wrap">
+				<div id="left_container" class="col col-md-3 col-sm-12">
+                	<div class="templatemo_logo">
+						<a  href="#"><img src="/images/ALY.png/" alt="Botany Theme"/></a>
+					</div>
+					<nav id="main_nav">
+						<ul class="nav">
+							<li class="active" style="font-family: '幼圆'; "><a href="/index/">主页</a></li>
+							<li><a href = "/add/"style="font-family: '幼圆'; ">添加游记</a></li>
+							<!--<li><a href=""style="font-family: '幼圆'; ">不知道</a></li>
+							<li><a href=""style="font-family: '幼圆'; ">不知道</a></li>-->
+							<li><a href="/my_note/" style="font-family: '幼圆'; ">查看我的游记</a></li>
+						</ul>
+					</nav> <!-- nav -->
+                    <br>
+                    <br>
+                    <a type="button" class="button button1" href = "/login/" style="color: white">登录</a>
+                    <a type="button" class="button button1" href = "/logout/" style="color: white">注销</a>
+                    <br>
+                    <br>
+                    <br>
+                    <center>
+                     
+                         <a  style="color: white">当前用户：${login_user!"未登录游客"}</a>
+                         
+                    
+                </center>
+                 <br> <br> <br>
 
-<link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.staticfile.org/jquery/2.0.0/jquery.js"></script>
-<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-<!-- 导航栏 -->
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="#">游记摘要系统</a>
-        </div>
-        <div id="navbar" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li class="active">
-
-                <a href="/index/">首页</a></li><!--“#”是默认当前页面，可以把#换成想跳转的页面-->
-              <li><a href="/add/">写游记</a></li>
-			  <li><a href="/my_note/">我的游记</a></li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-			  <li><a href="/login/">${login_user!"登录"}</a></li>
-           <li><a href="/logout/">注销</a></li>
-         </ul>
-        </div><!--/.nav-collapse -->
-      </div>
-    </nav>
-
-
-<body>
-<Br></Br>
-<Br></Br>
-<h2>${map.textname!}</h2>
-<ul id="myTab" class="nav nav-tabs">
-	<li>
-		<a href="#home" data-toggle="tab">
-			正文
-		</a>
-	</li>
-	<li class="active"><a href="#ios" data-toggle="tab">摘要</a></li>
-
-
-<div id="myTabContent" class="tab-content">
-	<div class="tab-pane fade in active" id="home">
-		<p>${map.text!}
-
-	</div>
-	<div class="tab-pane fade" id="ios">
-		<p>${map.zhaiyao!}</p>
-	</div>
-
-	<script>
-		$(function(){
-			$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-				// Get the name of active tab
-				var activeTab = $(e.target).text();
-				// Get the name of previous tab
-				var previousTab = $(e.relatedTarget).text();
-				$(".active-tab span").html(activeTab);
-				$(".previous-tab span").html(previousTab);
-			});
-		});
-	</script>
-
-<h2> <a href = "/poll/?id=${map.id!}">点赞</a> ${map.poll_num!}</h2>
-<h1>评论列表</h1>
-<div class="container-fluid">
-	<div class="row-fluid">
-		<div class="span12">
-			<dl>
-			<#list mapList as map>
-				<dt>
-					用户:${map.username!}
-				</dt>
-				<dd>
-					${map.content!}
-				</dd>
-				
-			</dl>
-			</#list>
-		</div>
-	</div>
-</div>
+					<div>
+						<a  href="#"><img src="/images/facebook.png" alt="Like us on Facebook"/></a>
+						<a href="#"><img src="/images/twitter.png" alt="Follow us on Twitter"></a>
+						<a href="#"><img src="/images/rss.png" alt="RSS feeds"></a>
+					</div>
 
 
+				</div>
+
+				<div id="right_container" class="col col-md-9 col-sm-12">
+					<div class="row">
+                    	<div class="col col-md-12">
+
+                    		<h2 style="color: #ffffff;font-family: '微软雅黑 Light'">游记摘要系统</h2>
+
+                            <div class="flexslider">
+                            </div>
+
+        				</div>
+                    </div>
 
 
-<form method="POST" action="/comment/" >  <!-- comment后面加游记id-->
-	<p>评论</p>
-    <input type="hidden" name="id" id="id" value="${map.id!}">
-	<textarea  id="comment" name="comment" rows="4" cols="100"></textarea>
-	<button class="btn btn-primary" type="submit" >提交评论</button>
-</form>
-</body>
+                    <h2>${map.textname!}</h2>
+						<ul id="myTab" class="nav nav-tabs">
+							<li >
+								<a href="#zhengwen" data-toggle="tab">
+									正文
+								</a>
+							</li>
+							<li><a href="#ios" data-toggle="tab">摘要</a></li>
+
+
+						<div id="myTabContent" class="tab-content">
+							<div class="tab-pane fade in active" id="zhengwen">
+								<p class="p1">${map.text!}
+
+							</div>
+							<div class="tab-pane fade" id="ios">
+								<p>${map.zhaiyao!}</p>
+							</div>
+
+							<script>
+								$(function(){
+									$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+										// Get the name of active tab
+										var activeTab = $(e.target).text();
+										// Get the name of previous tab
+										var previousTab = $(e.relatedTarget).text();
+										$(".active-tab span").html(activeTab);
+										$(".previous-tab span").html(previousTab);
+									});
+								});
 
 
 
-    <div class="container theme-showcase" role="main">
-      <div class="page-header">
-      </div>
-      <footer class="footer">
-        <p>&copy; 游记摘要系统 by:bupt_YZ</p>
-      </footer>
-    </div> <!-- /container -->
+								$(function () {
+									text_foled('.p1', 400);
+								});
 
+								/**
+								 * jQuery 文本折叠展开特效
+								 * @param clas：存放文本的容器
+								 * @param num：要显示的字数
+								 */
+								function text_foled(clas, num) {
+									var num = num;
+									var a = $("<a></a>").on('click', showText).addClass('a-text').text("【展开】");
+									var b = $("<a></a>").on('click', showText).addClass('a-text').text("【折叠】");
+									var p = $("<p></p>").addClass('p2');
+									var str = $(clas).text();
+									$(clas).after(p);
+									if (str.length > num) {
+										var text = str.substring(0, num) + "...";
+										$(clas).html(text).append(a);
+									}
+									$('.p2').html(str).append(b);
+									function showText() {
+										$(this).parent().hide().siblings().show();
+									}
+								}
+
+
+
+							</script>
+
+
+
+
+
+
+
+
+						<div class="box">
+		                	<div class="box-left">
+							<tbody >
+
+									<a href = "/poll/?id=${map.id!}">
+										<img style="float:left;margin-top:20px" src="/images/like.jpg" WIDTH="80px" height="50px" />
+										<h2> ${map.poll_num!}</h2>
+									</a>
+
+<!--								<h1>评论列表</h1>-->
+									<div style="margin-top:5px;width:1050px; height:1px;background-color:gray;"></div>
+									<#list mapList as map>
+
+
+
+									<a>
+										<span style="font-weight: normal;color:black;font-size:20px">&nbsp用户:${map.username!};&nbsp;</span>
+										<img style="float:left;margin-top:20px" src="/images_q/avtar.png" WIDTH="50px" height="50px"/>
+									</a>
+									<br style="font-size:10px">
+									<a style="font-size:40px" id="question" name="question">&nbsp${map.content!}</a>
+									
+									<br>
+									<div style="margin-top:5px;width:1050px; height:1px;background-color:gray;"></div>
+								</#list>
+								
+							</tbody>
+								
+								</div>
+							</div>
+
+
+
+						    <form method="POST" action="/comment/" >
+								
+									<!--font style="font-size:80px;"-->
+										<input type="hidden" name="id" id="id" value="${map.id!}">
+										<input type="text" name="comment"style="height:80px;width:800px; font-size: large" id="comment" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '请先登录再评论，否则只能以游客身份评论.';} "/>
+
+									<div style="color: blue" >
+										<input type="submit" class="button button1"  style="color: white"></input>
+										
+									</div>
+							</form>
+
+						
+		</body>
 </html>
-
